@@ -1,0 +1,20 @@
+---
+title: "Covid_api"
+author: "Aishwarya Sharma"
+date: "11/02/2022"
+output: html_document
+---
+
+```{r}
+library(httr)
+library(jsonlite)
+library(dplyr)
+
+url <- 'https://api.opencovid.ca/timeseries?stat=cases&loc=prov&date=01-09-2020'
+```
+
+```{r}
+get_link <- GET(url)
+json_data <- content(get_link, as  = "parse")
+data.frame(json_data$cases[[2]])
+```
