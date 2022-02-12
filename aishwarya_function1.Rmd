@@ -10,11 +10,122 @@ library(httr)
 library(jsonlite)
 library(dplyr)
 
-url <- 'https://api.opencovid.ca/timeseries?stat=cases&loc=prov&date=01-09-2020'
+```
+
+
+
+```{r}
+url <- 'https://api.opencovid.ca/timeseries'
+request <- GET(url)
+```
+
+
+
+```{r}
+json_data <- content(request, as  = "parse")
+all_avaccine <- json_data$avaccine
+avaccine_data <- data.frame()
+for(i in 1:length(all_avaccine)){
+  avaccine_data <- rbind(avaccine_data, data.frame(all_avaccine[[i]]))
+}
 ```
 
 ```{r}
-get_link <- GET(url)
-json_data <- content(get_link, as  = "parse")
-data.frame(json_data$cases[[2]])
+avaccine_data <- avaccine_data %>% 
+					rename('administered_vaccine' = 'avaccine', 'date' = 'date_vaccine_administered') %>%
+					mutate(date=as.Date(date, format = "%d-%m-%Y"))%>%
+					mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
+								 province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
+								 province = replace(province, province %in% c("NWT"), "Northwest Territories"),
+								 province = replace(province, province %in% c("PEI"), "Prince Edward Island"))
+
+avaccine_data <- avaccine_data[, c(3, 4, 1, 2)]
+head(avaccine_data)
 ```
+
+```{r}
+avaccine_data %>% filter(tolower(province) == tolower('BC')) 
+```
+
+
+```{r}
+request_fun <- function(){
+#' Function to make request to API and returns the response
+  url <- 'https://api.opencovid.ca/timeseries'
+  request <- GET(url)
+  return(request)
+}
+```
+
+
+
+
+
+
+```{r}
+#' Function for returning data frame for the Covid - 19 vaccination in different provinces in Canada.
+#' 
+#' Perform data wrangling and cleaning using the API for the Covid - 19 cases in Canada. 
+#' It processes the API and returns the data corresponding to one province 
+#' which is passed on as the argument. If user passes empty argument, so by default Canada is used which returns the data of whole Canada as a whole.
+#' The returned data is a data frame and contains the columns including the date of the vaccination, province name, administered vaccine and cumulative vaccine.
+#'    
+#' @param provinceName a character/ string depicting the name of the province
+#' 
+#' @return Data frame for the Covid - 19 vaccines corresponding to a particular province
+#' 
+#' @examples 
+#' vaccine_as_per_province('Alberta')
+
+vaccine_as_per_province <- function(provinceName = 'Canada'){
+	
+	prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward 	                Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
+  `%!in%` <- Negate(`%in%`)
+  if(tolower(provinceName) %!in% tolower(prov)){
+    stop("Please enter a valid province name that too in its full form!")
+  }
+	
+	# Fetching the data using the URL
+  request <- request_fun()
+	
+	# Reading the data as per JSON and then saving that in data frame
+  json_data <- content(request, as  = "parse")
+	all_avaccine <- json_data$avaccine
+	avaccine_data <- data.frame()
+	for(i in 1:length(all_avaccine)){
+	  avaccine_data <- rbind(avaccine_data, data.frame(all_avaccine[[i]]))
+	}
+	
+	# Data Cleaning
+	avaccine_data <- avaccine_data %>% 
+					rename('administered_vaccine' = 'avaccine', 'date' = 'date_vaccine_administered') %>%
+					mutate(date=as.Date(date, format = "%d-%m-%Y")) %>%
+					mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
+								 province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
+								 province = replace(province, province %in% c("NWT"), "Northwest Territories"),
+								 province = replace(province, province %in% c("PEI"), "Prince Edward Island"))
+
+	avaccine_data <- avaccine_data[, c(3, 4, 1, 2)]
+	
+	# Data Wrangling
+	
+	if(tolower(provinceName) == 'canada'){
+		return(avaccine_data)
+	} else {
+		avaccine_data <- avaccine_data %>% 
+											filter(tolower(province) == tolower(provinceName))
+		return(avaccine_data)
+	}
+}
+```
+
+
+```{r}
+test <- vaccine_as_per_province('British ColumbIA')
+```
+
+
+```{r}
+unique(test$province)
+```
+
