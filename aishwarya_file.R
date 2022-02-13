@@ -645,3 +645,57 @@ yearly_recovered<- function(provinceName = 'Canada', ryear='2020'){
 		return(recovered_data)
 	}
 }
+
+# Function for the testing rate of different provinces in Canada
+testing <- function(provinceName = 'Canada'){
+	#' Function for returning data frame for the Covid - 19 testing rate in different provinces in Canada.
+	#' 
+	#' Performed data wrangling and cleaning using the API for the Covid - 19 cases in Canada. 
+	#' It processes the API and returns the data corresponding to one province 
+	#' which is passed on as the argument. If user passes empty argument, so by default Canada is used which returns the data of whole Canada as a whole.
+	#' The returned data is a data frame and contains the columns including the testing date, province, cumulative testing, and count of testing
+	#'    
+	#' @param provinceName a character/ string depicting the name of the province
+	#' 
+	#' @return Data frame for the recovered cases after COVID -19 corresponding to a particular province
+	#' 
+	#' @examples 
+	#' testing('Alberta')
+	
+	prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward 	                Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
+	`%!in%` <- Negate(`%in%`)
+	if(tolower(provinceName) %!in% tolower(prov)){
+		stop("Please enter a valid province name that too in its full form!")
+	}
+	
+	# Fetching the data using the URL
+	request <- request_fun()
+	
+	# Reading the data as per JSON and then saving that in data frame
+	json_data <- content(request, as  = "parse")
+	testing <- json_data$testing
+	testing_data <- data.frame()
+	for(i in 1:length(testing)){
+		testing_data <- rbind(testing_data, data.frame(testing[[i]]))
+	}
+	
+	# Data Cleaning
+	testing_data <- testing_data %>% 
+		mutate(date_testing=as.Date(date_testing, format = "%d-%m-%Y"))%>%
+		mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
+					 province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
+					 province = replace(province, province %in% c("NWT"), "Northwest Territories"),
+					 province = replace(province, province %in% c("PEI"), "Prince Edward Island"))
+	
+	testing_data <- testing_data[, c(2, 3, 1, 4)]
+	
+	# Data Wrangling
+	
+	if(tolower(provinceName) == 'canada'){
+		return(testing_data)
+	} else {
+		testing_data <- testing_data %>% 
+			filter(tolower(province) == tolower(provinceName))
+		return(testing_data)
+	}
+}
