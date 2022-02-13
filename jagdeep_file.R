@@ -3,9 +3,9 @@ library(jsonlite)
 library(dplyr)
 library(lubridate)
 library(docstring)
+library(testthat)
 
 request_fun <- function(){
-  #' Function to make request to API and returns the response 
   url <- 'https://api.opencovid.ca/timeseries'
   request <- GET(url)
   return(request)
@@ -13,20 +13,18 @@ request_fun <- function(){
 
 
 active_cases <- function(provinceName = 'Canada'){
-  #' Returns a dataframe of active Covid-19 cases in desired province of Canada
+  #' @title  Returns a dataframe of active Covid-19 cases in desired province of Canada
   #'
-  #' Perform data wrangling and cleaning using the API for the Covid-19 cases in Canada.
-  #' It processes the API and returns the data corresponding to one province
-  #' which is passed on as the argument. If user passes empty argument, so by default Canada is used which returns the data of whole Canada as a  whole.
-  #' The returned data is a data frame and contains the columns including the date, province name, active cases, change is active cases, 
+  #' @description Perform data wrangling and cleaning using the API for the Covid-19 cases in Canada.
+  #' It processes the API and returns the data corresponding to one province which is passed on as the argument. If user passes empty      #' argument, so by default Canada is used which returns the data of whole Canada as a  whole.
+  #' The returned data is a data frame and contains the columns including the date, province name, active cases, change is active cases,
   #' cumulative cases, cumulative deaths and cumulative recovered.
   #'
   #' @param provinceName a character/string depicting the name of the province
   #'
   #' @return Data frame for the Covid-19 active cases  corresponding to a particular province
   #'
-  #' @examples
-  #' active_cases("Alberta")
+  #' @examples active_cases("Alberta")
   
   prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
   
@@ -64,6 +62,17 @@ active_cases <- function(provinceName = 'Canada'){
 }
 
 
+test_that("testing of active_cases", {
+  expected <- active_cases("Alberta")
+  expect_s3_class(expected, "data.frame")
+})
+test_that("testing of active_cases", {
+  expected <- active_cases("Alberta")
+  expect_equal(unique(expected$province), "Alberta")
+})
+test_that("testing of active_cases", {
+  expect_error(active_cases("BC"), "Please enter a valid province name in full form!")
+})
 
 
 
