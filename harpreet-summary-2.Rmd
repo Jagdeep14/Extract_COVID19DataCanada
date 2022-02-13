@@ -1,0 +1,66 @@
+---
+title: "harpreet-summary-2"
+author: "Harpreet Kaur"
+date: "13/02/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+request_fun <- function(){
+#' Function to make request to API and returns the response 
+  url <- 'https://api.opencovid.ca/summary?date=01-09-2020'
+  request <- GET(url)
+  return(request)
+}
+
+```
+
+```{r}
+active_cases <- function(provinceName = 'Canada'){
+  prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
+  
+  `%!in%` <- Negate(`%in%`) 
+  if(tolower(provinceName) %!in% tolower(prov)){
+    stop("Please enter a valid province name in full form!")
+  }
+  
+  request <- request_fun()
+  json_data <- content(request, as  = "parse")
+  all_active <- json_data$active
+  active_data <- data.frame()
+  
+  #print(json_data[[1]])
+  for(i in 1:length(json_data[[1]])){
+
+    active_data <- rbind(active_data, data.frame(json_data[[1]][[i]]))
+  }
+  
+  
+  active_data <- active_data %>%
+    mutate(date, date = dmy(date)) %>%
+    mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
+           province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
+           province = replace(province, province %in% c("NWT"), "Northwest Territories"),
+           province = replace(province, province %in% c("PEI"), "Prince Edward Island"))
+  
+  
+  active_data <- active_data[,c(13,16,1:12,14:15,17:19)]
+  print(active_data)
+  if(tolower(provinceName) == "canada"){
+    return(active_data)
+  } else {
+    active_data <- active_data %>%
+      filter(tolower(province) == tolower(provinceName))
+    return(active_data)
+  }
+  
+}
+
+
+data <- active_cases('ALBERTA')
+```
