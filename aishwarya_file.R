@@ -416,3 +416,59 @@ yearly_vaccine_distribution<- function(provinceName = 'Canada',distyear='2020'){
 		return(dvaccine_data)
 	}
 }
+
+
+# Function shows the information of the deaths related to COVID -19 as per the specified province
+mortality <- function(provinceName = 'Canada'){
+	#' Function for returning data frame for the Covid - 19 mortality rate in different provinces in Canada.
+	#' 
+	#' Performed data wrangling and cleaning using the API for the Covid - 19 cases in Canada. 
+	#' It processes the API and returns the data corresponding to one province 
+	#' which is passed on as the argument. If user passes empty argument, so by default Canada is used which returns the data of whole Canada as a whole.
+	#' The returned data is a data frame and contains the columns including the date of the death, province name, cumulative deaths and deaths.
+	#'    
+	#' @param provinceName a character/ string depicting the name of the province
+	#' 
+	#' @return Data frame for the deaths because of COVID -19 corresponding to a particular province
+	#' 
+	#' @examples 
+	#' mortality('Alberta')
+	
+	prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward 	                Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
+	`%!in%` <- Negate(`%in%`)
+	if(tolower(provinceName) %!in% tolower(prov)){
+		stop("Please enter a valid province name that too in its full form!")
+	}
+	
+	# Fetching the data using the URL
+	request <- request_fun()
+	
+	# Reading the data as per JSON and then saving that in data frame
+	json_data <- content(request, as  = "parse")
+	mortaility <- json_data$mortality
+	mortaility_data <- data.frame()
+	for(i in 1:length(mortaility)){
+		mortaility_data <- rbind(mortaility_data, data.frame(mortaility[[i]]))
+	}
+	
+	# Data Cleaning
+	mortaility_data <- mortaility_data %>% 
+		rename('death_date' = 'date_death_report') %>%
+		mutate(death_date=as.Date(death_date, format = "%d-%m-%Y"))%>%
+		mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
+					 province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
+					 province = replace(province, province %in% c("NWT"), "Northwest Territories"),
+					 province = replace(province, province %in% c("PEI"), "Prince Edward Island"))
+	
+	mortaility_data <- mortaility_data[, c(2, 4, 1, 3)]
+	
+	# Data Wrangling
+	
+	if(tolower(provinceName) == 'canada'){
+		return(mortaility_data)
+	} else {
+		mortaility_data <- mortaility_data %>% 
+			filter(tolower(province) == tolower(provinceName))
+		return(mortaility_data)
+	}
+}
