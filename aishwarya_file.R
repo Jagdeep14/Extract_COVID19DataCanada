@@ -532,3 +532,58 @@ yearly_deaths<- function(provinceName = 'Canada', dyear='2020'){
 		return(mortaility_data)
 	}
 }
+
+# Function showing the data for the recovery cases after COVID- 19
+recovered <- function(provinceName = 'Canada'){
+	#' Function for returning data frame for the Covid - 19 recovery rate in different provinces in Canada.
+	#' 
+	#' Performed data wrangling and cleaning using the API for the Covid - 19 cases in Canada. 
+	#' It processes the API and returns the data corresponding to one province 
+	#' which is passed on as the argument. If user passes empty argument, so by default Canada is used which returns the data of whole Canada as a whole.
+	#' The returned data is a data frame and contains the columns including the recovery date, province, cumulative recovered, and count of recovery.
+	#'    
+	#' @param provinceName a character/ string depicting the name of the province
+	#' 
+	#' @return Data frame for the recovered cases after COVID -19 corresponding to a particular province
+	#' 
+	#' @examples 
+	#' recovered('Alberta')
+	
+	prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward 	                Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
+	`%!in%` <- Negate(`%in%`)
+	if(tolower(provinceName) %!in% tolower(prov)){
+		stop("Please enter a valid province name that too in its full form!")
+	}
+	
+	# Fetching the data using the URL
+	request <- request_fun()
+	
+	# Reading the data as per JSON and then saving that in data frame
+	json_data <- content(request, as  = "parse")
+	recovered <- json_data$recovered
+	recovered_data <- data.frame()
+	for(i in 1:length(recovered)){
+		recovered_data <- rbind(recovered_data, data.frame(recovered[[i]]))
+		
+	}
+	
+	# Data Cleaning
+	recovered_data <- recovered_data %>% 
+		mutate(date_recovered=as.Date(date_recovered, format = "%d-%m-%Y"))%>%
+		mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
+					 province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
+					 province = replace(province, province %in% c("NWT"), "Northwest Territories"),
+					 province = replace(province, province %in% c("PEI"), "Prince Edward Island"))
+	
+	recovered_data <- recovered_data[, c(2, 3, 1, 4)]
+	
+	# Data Wrangling
+	
+	if(tolower(provinceName) == 'canada'){
+		return(recovered_data)
+	} else {
+		recovered_data <- recovered_data %>% 
+			filter(tolower(province) == tolower(provinceName))
+		return(recovered_data)
+	}
+}
