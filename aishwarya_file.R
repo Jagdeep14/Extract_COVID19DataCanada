@@ -181,3 +181,58 @@ Yearlycases_as_per_province <- function(provinceName = 'Canada',yearpassed='2020
 		return(cases_data)
 	}
 }
+
+
+cumulativevaccine_as_per_province <- function(provinceName = 'Canada'){
+	#' Function for returning data frame for the Covid - 19 vaccination which is cumulative in different provinces in Canada.
+	#' 
+	#' Performed data wrangling and cleaning using the API for the Covid - 19 cases in Canada. 
+	#' It processes the API and returns the data corresponding to one province 
+	#' which is passed on as the argument. If user passes empty argument, so by default Canada is used which returns the data of whole Canada as a whole.
+	#' The returned data is a data frame and contains the columns including the date of the vaccination, province name,cumulative vaccine and cvaccine.
+	#'    
+	#' @param provinceName a character/ string depicting the name of the province
+	#' 
+	#' @return Data frame for the Covid - 19 cummulative vaccines corresponding to a particular province
+	#' 
+	#' @examples 
+	#' cumulativevaccine_as_per_province('Alberta')
+	
+	prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward 	                Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
+	`%!in%` <- Negate(`%in%`)
+	if(tolower(provinceName) %!in% tolower(prov)){
+		stop("Please enter a valid province name that too in its full form!")
+	}
+	
+	# Fetching the data using the URL
+	request <- request_fun()
+	
+	# Reading the data as per JSON and then saving that in data frame
+	json_data <- content(request, as  = "parse")
+	cvaccine <- json_data$cvaccine
+	cvaccine_data <- data.frame()
+	for(i in 1:length(cvaccine)){
+		cvaccine_data <- rbind(cvaccine_data, data.frame(cvaccine[[i]]))
+	}
+	
+	# Data Cleaning
+	cvaccine_data <- cvaccine_data %>% 
+		rename('date' = 'date_vaccine_completed') %>%
+		mutate(date=as.Date(date, format = "%d-%m-%Y"))%>%
+		mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
+					 province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
+					 province = replace(province, province %in% c("NWT"), "Northwest Territories"),
+					 province = replace(province, province %in% c("PEI"), "Prince Edward Island"))
+	
+	cvaccine_data <- cvaccine_data[, c(3, 4, 1, 2)]
+	
+	# Data Wrangling
+	
+	if(tolower(provinceName) == 'canada'){
+		return(cvaccine_data)
+	} else {
+		cvaccine_data <- cvaccine_data %>% 
+			filter(tolower(province) == tolower(provinceName))
+		return(cvaccine_data)
+	}
+}
