@@ -300,3 +300,59 @@ Yearlycumulative_vaccine <- function(provinceName = 'Canada', cumulativeyear='20
 		return(cvaccine_year)
 	}
 }
+
+
+# Function for displaying information for the distribution of the vaccine
+vaccine_distribution<- function(provinceName = 'Canada'){
+	#' Function for returning data frame for the Covid - 19 vaccination distribution in different provinces in Canada.
+	#' 
+	#' Performed data wrangling and cleaning using the API for the Covid - 19 cases in Canada. 
+	#' It processes the API and returns the data corresponding to one province 
+	#' which is passed on as the argument. If user passes empty argument, so by default Canada is used which returns the data of whole Canada as a whole.
+	#' The returned data is a data frame and contains the columns including the ddistribution, province name,cumulative vaccine and count of distribution of         #' vaccines.
+	#'    
+	#' @param provinceName a character/ string depicting the name of the province
+	#' 
+	#' @return Data frame for the Covid - 19 vaccines distribution corresponding to a particular province
+	#' 
+	#' @examples 
+	#' vaccine_distribution('Alberta')
+	
+	prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward 	                Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
+	`%!in%` <- Negate(`%in%`)
+	if(tolower(provinceName) %!in% tolower(prov)){
+		stop("Please enter a valid province name that too in its full form!")
+	}
+	
+	# Fetching the data using the URL
+	request <- request_fun()
+	
+	# Reading the data as per JSON and then saving that in data frame
+	json_data <- content(request, as  = "parse")
+	dvaccine <- json_data$dvaccine
+	dvaccine_data <- data.frame()
+	for(i in 1:length(dvaccine)){
+		dvaccine_data <- rbind(dvaccine_data, data.frame(dvaccine[[i]]))
+	}
+	
+	# Data Cleaning
+	dvaccine_data <- dvaccine_data %>% 
+		rename('distribution_date' = 'date_vaccine_distributed') %>%
+		mutate(distribution_date=as.Date(distribution_date, format = "%d-%m-%Y"))%>%
+		mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
+					 province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
+					 province = replace(province, province %in% c("NWT"), "Northwest Territories"),
+					 province = replace(province, province %in% c("PEI"), "Prince Edward Island"))
+	
+	dvaccine_data <- dvaccine_data[, c(2, 4, 1, 3)]
+	
+	# Data Wrangling
+	
+	if(tolower(provinceName) == 'canada'){
+		return(dvaccine_data)
+	} else {
+		dvaccine_data <- dvaccine_data %>% 
+			filter(tolower(province) == tolower(provinceName))
+		return(dvaccine_data)
+	}
+}
