@@ -74,7 +74,7 @@ test_that("testing of vaccine_as_per_province", {
 	expected <- vaccine_as_per_province("Alberta")
 	expect_s3_class(expected, "data.frame")
 	expect_equal(unique(expected$province), "Alberta")
-	expect_error(active_cases("BC"), "Please enter a valid province name in full form!")
+	expect_error(vaccine_as_per_province("BC"), "Please enter a valid province name that too in its full form!")
 })
 
 
@@ -140,7 +140,7 @@ test_that("testing of cases_as_per_province", {
 	expected <- cases_as_per_province("British Columbia")
 	expect_s3_class(expected, "data.frame")
 	expect_equal(unique(expected$province), "British Columbia")
-	expect_error(active_cases("BC"), "Please enter a valid province name in full form!")
+	expect_error(cases_as_per_province("BC"), "Please enter a valid province name that too in its full form!")
 })
 
 # Function for getting the information as per the province and year	
@@ -212,7 +212,7 @@ test_that("testing of Yearlycases_as_per_province", {
 	expect_s3_class(expected, "data.frame")
 	expect_equal(unique(expected$province), "British Columbia")
 	expect_equal(unique(expected$year), "2021")
-	expect_error(active_cases("BC"), "Please enter a valid province name in full form!")
+	expect_error(Yearlycases_as_per_province("BC"), "Please enter a valid province name that too in its full form!")
 })
 
 
@@ -279,7 +279,7 @@ test_that("testing of cumulativevaccine_as_per_province", {
 	expected <- cumulativevaccine_as_per_province("Alberta")
 	expect_s3_class(expected, "data.frame")
 	expect_equal(unique(expected$province), "Alberta")
-	expect_error(active_cases("BC"), "Please enter a valid province name in full form!")
+	expect_error(cumulativevaccine_as_per_province("BC"), "Please enter a valid province name that too in its full form!")
 })
 
 
@@ -398,6 +398,16 @@ vaccine_distribution<- function(provinceName = 'Canada'){
 		return(dvaccine_data)
 	}
 }
+
+
+#TESTING the function
+
+test_that("testing of vaccine_distribution", {
+	expected <- vaccine_distribution("Alberta")
+	expect_s3_class(expected, "data.frame")
+	expect_equal(unique(expected$province), "Alberta")
+	expect_error(vaccine_distribution("BC"), "Please enter a valid province name that too in its full form!")
+})
 
 
 # Function showing the distribution of the vaccines as per the province yearly
