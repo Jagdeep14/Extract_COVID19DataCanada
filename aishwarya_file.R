@@ -273,6 +273,17 @@ cumulativevaccine_as_per_province <- function(provinceName = 'Canada'){
 }
 
 
+#TESTING the function
+
+test_that("testing of cumulativevaccine_as_per_province", {
+	expected <- cumulativevaccine_as_per_province("Alberta")
+	expect_s3_class(expected, "data.frame")
+	expect_equal(unique(expected$province), "Alberta")
+	expect_error(active_cases("BC"), "Please enter a valid province name in full form!")
+})
+
+
+
 # Function for providing the detail regarding the details of cumulative vaccine as per the year and province
 Yearlycumulative_vaccine <- function(provinceName = 'Canada', cumulativeyear='2020'){
 	#' Function for returning data frame for the Covid - 19 vaccination which is cumulative in different provinces in Canada.
