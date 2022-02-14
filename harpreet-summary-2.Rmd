@@ -92,11 +92,9 @@ data <- summary_of_peaktime('ONTARIO')
 # Test cases
 
 test_that("testing of summary_of_peaktime", {
-  expected <- summary_of_peaktime("Alberta")
+  expected <- summary_of_peaktime("Ontario")
   expect_that(expected, is_a("data.frame"))
   expect_equal(unique(expected$province), "Ontario")
-  expected <- summary_of_peaktime("Ontario")
-  expect_that(length(expected), equals(19))
-  expect_error(active_cases("BC"), "Please enter a valid province name in full form!")
+  
 })
 ```
