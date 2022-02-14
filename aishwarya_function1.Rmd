@@ -24,20 +24,21 @@ request_fun <- function(){
 ```
 
 ```{r}
-cases_as_per_province <- function(provinceName = 'Canada'){
-	#' Function for returning data frame for the Covid - 19 cases in different provinces in Canada.
+Yearlycumulative_vaccine <- function(provinceName = 'Canada', cumulativeyear='2020'){
+	#' Function for returning data frame for the Covid - 19 vaccination which is cumulative in different provinces in Canada.
 	#' 
 	#' Performed data wrangling and cleaning using the API for the Covid - 19 cases in Canada. 
 	#' It processes the API and returns the data corresponding to one province 
 	#' which is passed on as the argument. If user passes empty argument, so by default Canada is used which returns the data of whole Canada as a whole.
-	#' The returned data is a data frame and contains the columns including the date of the cases, province name, cases and cumulative cases.
+	#' The returned data is a data frame and contains the columns including the date of the vaccination, province name,cumulative vaccine and cvaccine.
 	#'    
 	#' @param provinceName a character/ string depicting the name of the province
-	#' 
-	#' @return Data frame for the Covid - 19 cases corresponding to a particular province
+	#' @param cumulativeyear a character/ string for the year 
+	#'
+	#' @return Data frame for the Covid - 19 cummulative vaccines corresponding to a particular province and year
 	#' 
 	#' @examples 
-	#' cases_as_per_province('Alberta')
+	#' Yearlycumulative_vaccine('Alberta','2020')
 	
 	prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward 	                Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
 	`%!in%` <- Negate(`%in%`)
@@ -50,43 +51,51 @@ cases_as_per_province <- function(provinceName = 'Canada'){
 	
 	# Reading the data as per JSON and then saving that in data frame
 	json_data <- content(request, as  = "parse")
-	cases <- json_data$cases
-	cases_data <- data.frame()
-	for(i in 1:length(cases)){
-		cases_data <- rbind(cases_data, data.frame(cases[[i]]))
+	cvaccine_json <- json_data$cvaccine
+	cvaccine_year <- data.frame()
+	for(i in 1:length(cvaccine_json)){
+		cvaccine_year <- rbind(cvaccine_year, data.frame(cvaccine_json[[i]]))
 	}
 	
 	# Data Cleaning
-	cases_data <- cases_data %>% 
-		rename('date' = 'date_report') %>%
+	cvaccine_year <- cvaccine_year %>% 
+		rename('date' = 'date_vaccine_completed') %>%
 		mutate(date=as.Date(date, format = "%d-%m-%Y"))%>%
 		mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
 					 province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
 					 province = replace(province, province %in% c("NWT"), "Northwest Territories"),
-					 province = replace(province, province %in% c("PEI"), "Prince Edward Island"))
+					 province = replace(province, province %in% c("PEI"), "Prince Edward Island")) %>%
+		mutate(year = format(date, format = "%Y")) 
 	
-	cases_data <- cases_data[, c(3, 4, 1, 2)]
+	cvaccine_year <- cvaccine_year[, c(3, 4, 1, 2, 5)]
 	
 	# Data Wrangling
 	
 	if(tolower(provinceName) == 'canada'){
-		return(cases_data)
+		cvaccine_year <- cvaccine_year %>% 
+			filter(year==cumulativeyear)
+		return(cvaccine_year)
 	} else {
-		cases_data <- cases_data %>% 
-			filter(tolower(province) == tolower(provinceName))
-		return(cases_data)
+		cvaccine_year <- cvaccine_year %>% 
+			filter(tolower(province) == tolower(provinceName), year == cumulativeyear)
+		return(cvaccine_year)
 	}
 }
 ```
 
 
+```{r}
+test <- Yearlycumulative_vaccine("Alberta")
+```
+
 
 
 ```{r}
-test_that("testing of cases_as_per_province", {
-  expected <- cases_as_per_province("British Columbia")
+test_that("testing of Yearlycumulative_vaccine", {
+  expected <- Yearlycumulative_vaccine("Alberta")
   expect_s3_class(expected, "data.frame")
-  expect_equal(unique(expected$province), "British Columbia")
+  expect_equal(unique(expected$province), "Alberta")
+  expect_equal(unique(expected$year), "2020")
   expect_error(active_cases("BC"), "Please enter a valid province name in full form!")
 })
 ```
