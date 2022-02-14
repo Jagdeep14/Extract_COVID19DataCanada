@@ -39,3 +39,26 @@ Following is the list of the functions that I have created:
 https://github.com/aishwaryasharma10/534_project.git
 
 ![Day1_Aishwarya](Day2_Aishwarya.png)
+
+## Day 3 Aishwarya:
+
+On day two, I have wriiten various tests for the functions using the API 'https://api.opencovid.ca/timeseries'
+Following is the list of the functions for which I have created the test cases.
+
+- vaccine_as_per_province
+- cases_as_per_province
+- Yearlycases_as_per_province
+- cumulativevaccine_as_per_province
+- vaccine_distribution
+- yearly_vaccine_distribution
+- mortality
+- yearly_deaths
+- recovered
+- yearly_recovered
+- testing
+
+- Following is the link to the git repository along with the screenshot of the commits done by me.
+
+https://github.com/aishwaryasharma10/534_project.git
+
+![Day1_Aishwarya](Day3_Aishwarya.png)
