@@ -134,6 +134,15 @@ cases_as_per_province <- function(provinceName = 'Canada'){
 }
 
 
+# TESTING the function
+
+test_that("testing of cases_as_per_province", {
+	expected <- cases_as_per_province("British Columbia")
+	expect_s3_class(expected, "data.frame")
+	expect_equal(unique(expected$province), "British Columbia")
+	expect_error(active_cases("BC"), "Please enter a valid province name in full form!")
+})
+
 # Function for getting the information as per the province and year	
 Yearlycases_as_per_province <- function(provinceName = 'Canada',yearpassed='2020'){
 	
