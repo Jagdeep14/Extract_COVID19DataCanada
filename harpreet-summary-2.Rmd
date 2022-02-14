@@ -48,7 +48,45 @@ summary_of_peaktime <- function(provinceName = "Canada") {
   #' @examples summary_of_peaktime("Ontario")
    
   prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
+
+  `%!in%` <- Negate(`%in%`) # taking care of the cases of letter
+  if (tolower(provinceName) %!in% tolower(prov)) {
+    stop("Please enter a valid province name in full form!")
+  }
+
+  request <- request_fun() # request to url
+  json_data <- content(request, as = "parse") # json for the url
+  active_data <- data.frame() # empty frame for appending
+
+  # data extraction
+  for(i in 1:length(json_data[[1]])){
+
+    active_data <- rbind(active_data, data.frame(json_data[[1]][[i]]))
+  }
   
+  # dataframe wrangling
+  active_data <- active_data %>%
+    mutate(date, date = dmy(date)) %>%
+    mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
+           province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
+           province = replace(province, province %in% c("NWT"), "Northwest Territories"),
+           province = replace(province, province %in% c("PEI"), "Prince Edward Island"))
+  
+  
+  active_data <- active_data[,c(13,16,1:12,14:15,17:19)] #extracted keys
+  
+  # sensitive case handling
+  if(tolower(provinceName) == "canada"){
+    return(active_data)
+  } else {
+    active_data <- active_data %>%
+      filter(tolower(province) == tolower(provinceName))
+    return(active_data)
+  }
+  
+}
+
+data <- summary_of_peaktime('ONTARIO')
 ```
 
 
