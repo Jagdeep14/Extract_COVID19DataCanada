@@ -16,3 +16,26 @@ I along with the other group members discussed the overall structure of the proj
 https://github.com/aishwaryasharma10/534_project.git
 
 ![Day1_Aishwarya](Day1_Aishwarya.png)
+
+## Day 2 Aishwarya:
+
+On day two, I have wriiten various functions using the API 'https://api.opencovid.ca/timeseries'
+Following is the list of the functions that I have created:
+
+- vaccine_as_per_province
+- cases_as_per_province
+- Yearlycases_as_per_province
+- cumulativevaccine_as_per_province
+- vaccine_distribution
+- yearly_vaccine_distribution
+- mortality
+- yearly_deaths
+- recovered
+- yearly_recovered
+- testing
+
+- Following is the link to the git repository along with the screenshot of the commits done by me.
+
+https://github.com/aishwaryasharma10/534_project.git
+
+![Day1_Aishwarya](Day2_Aishwarya.png)
