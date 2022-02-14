@@ -619,7 +619,7 @@ test_that("testing of recovered", {
 	expect_error(recovered("BC"), "Please enter a valid province name that too in its full form!")
 })
 
-# Function showing recovered cases yearly
+# 10. Function showing recovered cases yearly
 yearly_recovered<- function(provinceName = 'Canada', ryear='2020'){
 	#' Function for returning data frame for the Covid - 19 recovered cases in different provinces in Canada according to the year.
 	#' 
@@ -676,6 +676,15 @@ yearly_recovered<- function(provinceName = 'Canada', ryear='2020'){
 		return(recovered_data)
 	}
 }
+
+# 10. TESTING the function
+
+test_that("testing of yearly_recovered", {
+	expected <- yearly_recovered("Alberta")
+	expect_s3_class(expected, "data.frame")
+	expect_equal(unique(expected$province), "Alberta")
+	expect_error(yearly_recovered("BC"), "Please enter a valid province name that too in its full form!")
+})
 
 # Function for the testing rate of different provinces in Canada
 testing <- function(provinceName = 'Canada'){
