@@ -12,7 +12,7 @@ request_fun <- function(){
 }
 
 
-# Function for getting information about the vaccine as per the province
+# 1. Function for getting information about the vaccine as per the province
 vaccine_as_per_province <- function(provinceName = 'Canada'){
 	#' Function for returning data frame for the Covid - 19 vaccination in different provinces in Canada.
 	#' 
@@ -68,7 +68,7 @@ vaccine_as_per_province <- function(provinceName = 'Canada'){
 }
 
 
-# TESTING of the function 
+#1. TESTING of the function 
 
 test_that("testing of vaccine_as_per_province", {
 	expected <- vaccine_as_per_province("Alberta")
@@ -78,7 +78,7 @@ test_that("testing of vaccine_as_per_province", {
 })
 
 
-# Function for getting the information about the cases as per the province
+# 2. Function for getting the information about the cases as per the province
 cases_as_per_province <- function(provinceName = 'Canada'){
 	#' Function for returning data frame for the Covid - 19 cases in different provinces in Canada.
 	#' 
@@ -134,7 +134,7 @@ cases_as_per_province <- function(provinceName = 'Canada'){
 }
 
 
-# TESTING the function
+# 2. TESTING the function
 
 test_that("testing of cases_as_per_province", {
 	expected <- cases_as_per_province("British Columbia")
@@ -143,7 +143,7 @@ test_that("testing of cases_as_per_province", {
 	expect_error(cases_as_per_province("BC"), "Please enter a valid province name that too in its full form!")
 })
 
-# Function for getting the information as per the province and year	
+# 3. Function for getting the information as per the province and year	
 Yearlycases_as_per_province <- function(provinceName = 'Canada',yearpassed='2020'){
 	
 	#' Function for returning data frame for the Covid - 19 cases in different provinces as per the year specified in Canada.
@@ -205,7 +205,7 @@ Yearlycases_as_per_province <- function(provinceName = 'Canada',yearpassed='2020
 }
 
 
-# TESTING the function
+# 3. TESTING the function
 
 test_that("testing of Yearlycases_as_per_province", {
 	expected <- Yearlycases_as_per_province("British Columbia","2021")
@@ -217,7 +217,7 @@ test_that("testing of Yearlycases_as_per_province", {
 
 
 
-# Function for providing details of the cumulative vaccines as per the province
+# 4. Function for providing details of the cumulative vaccines as per the province
 cumulativevaccine_as_per_province <- function(provinceName = 'Canada'){
 	#' Function for returning data frame for the Covid - 19 vaccination which is cumulative in different provinces in Canada.
 	#' 
@@ -273,7 +273,7 @@ cumulativevaccine_as_per_province <- function(provinceName = 'Canada'){
 }
 
 
-#TESTING the function
+# 4. TESTING the function
 
 test_that("testing of cumulativevaccine_as_per_province", {
 	expected <- cumulativevaccine_as_per_province("Alberta")
@@ -284,67 +284,7 @@ test_that("testing of cumulativevaccine_as_per_province", {
 
 
 
-# Function for providing the detail regarding the details of cumulative vaccine as per the year and province
-Yearlycumulative_vaccine <- function(provinceName = 'Canada', cumulativeyear='2020'){
-	#' Function for returning data frame for the Covid - 19 vaccination which is cumulative in different provinces in Canada.
-	#' 
-	#' Performed data wrangling and cleaning using the API for the Covid - 19 cases in Canada. 
-	#' It processes the API and returns the data corresponding to one province 
-	#' which is passed on as the argument. If user passes empty argument, so by default Canada is used which returns the data of whole Canada as a whole.
-	#' The returned data is a data frame and contains the columns including the date of the vaccination, province name,cumulative vaccine and cvaccine.
-	#'    
-	#' @param provinceName a character/ string depicting the name of the province
-	#' @param cumulativeyear a character/ string for the year 
-	#'
-	#' @return Data frame for the Covid - 19 cummulative vaccines corresponding to a particular province and year
-	#' 
-	#' @examples 
-	#' Yearlycumulative_vaccine('Alberta','2020')
-	
-	prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward 	                Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
-	`%!in%` <- Negate(`%in%`)
-	if(tolower(provinceName) %!in% tolower(prov)){
-		stop("Please enter a valid province name that too in its full form!")
-	}
-	
-	# Fetching the data using the URL
-	request <- request_fun()
-	
-	# Reading the data as per JSON and then saving that in data frame
-	json_data <- content(request, as  = "parse")
-	cvaccine_json <- json_data$cvaccine
-	cvaccine_year <- data.frame()
-	for(i in 1:length(cvaccine_json)){
-		cvaccine_year <- rbind(cvaccine_year, data.frame(cvaccine_json[[i]]))
-	}
-	
-	# Data Cleaning
-	cvaccine_year <- cvaccine_year %>% 
-		rename('date' = 'date_vaccine_completed') %>%
-		mutate(date=as.Date(date, format = "%d-%m-%Y"))%>%
-		mutate(province = replace(province, province %in% c("BC"), "British Columbia"),
-					 province = replace(province, province %in% c("NL"), "Newfoundland and Labrador"),
-					 province = replace(province, province %in% c("NWT"), "Northwest Territories"),
-					 province = replace(province, province %in% c("PEI"), "Prince Edward Island")) %>%
-		mutate(year = format(date, format = "%Y")) 
-	
-	cvaccine_year <- cvaccine_year[, c(3, 4, 1, 2, 5)]
-	
-	# Data Wrangling
-	
-	if(tolower(provinceName) == 'canada'){
-		cvaccine_year <- cvaccine_year %>% 
-			filter(year==cumulativeyear)
-		return(cvaccine_year)
-	} else {
-		cvaccine_year <- cvaccine_year %>% 
-			filter(tolower(province) == tolower(provinceName), year == cumulativeyear)
-		return(cvaccine_year)
-	}
-}
-
-
-# Function for displaying information for the distribution of the vaccine
+# 5. Function for displaying information for the distribution of the vaccine
 vaccine_distribution<- function(provinceName = 'Canada'){
 	#' Function for returning data frame for the Covid - 19 vaccination distribution in different provinces in Canada.
 	#' 
@@ -400,7 +340,7 @@ vaccine_distribution<- function(provinceName = 'Canada'){
 }
 
 
-#TESTING the function
+# 5. TESTING the function
 
 test_that("testing of vaccine_distribution", {
 	expected <- vaccine_distribution("Alberta")
@@ -410,7 +350,7 @@ test_that("testing of vaccine_distribution", {
 })
 
 
-# Function showing the distribution of the vaccines as per the province yearly
+# 6. Function showing the distribution of the vaccines as per the province yearly
 yearly_vaccine_distribution<- function(provinceName = 'Canada',distyear='2020'){
 	#' Function for returning data frame for the Covid - 19 vaccination distribution in different provinces in Canada according to the year.
 	#' 
@@ -468,6 +408,17 @@ yearly_vaccine_distribution<- function(provinceName = 'Canada',distyear='2020'){
 		return(dvaccine_data)
 	}
 }
+
+
+# 6. TESTING the fucntion
+
+test_that("testing of yearly_vaccine_distribution", {
+	expected <- yearly_vaccine_distribution("Alberta")
+	expect_s3_class(expected, "data.frame")
+	expect_equal(unique(expected$province), "Alberta")
+	expect_error(yearly_vaccine_distribution("BC"), "Please enter a valid province name that too in its full form!")
+})
+
 
 
 # Function shows the information of the deaths related to COVID -19 as per the specified province
