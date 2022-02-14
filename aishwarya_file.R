@@ -477,7 +477,7 @@ mortality <- function(provinceName = 'Canada'){
 }
 
 
-# TSETING the fucntion 
+# 7. TSETING the fucntion 
 test_that("testing of mortality", {
 	expected <- mortality("Alberta")
 	expect_s3_class(expected, "data.frame")
@@ -486,7 +486,7 @@ test_that("testing of mortality", {
 })
 
 
-# Function showing the information of the deaths related to COVID -19 as per the year passed
+# 8. Function showing the information of the deaths related to COVID -19 as per the year passed
 yearly_deaths<- function(provinceName = 'Canada', dyear='2020'){
 	#' Function for returning data frame for the Covid - 19 deaths in different provinces in Canada according to the year.
 	#' 
@@ -544,6 +544,15 @@ yearly_deaths<- function(provinceName = 'Canada', dyear='2020'){
 		return(mortaility_data)
 	}
 }
+
+
+# 8. TESTING the function
+test_that("testing of yearly_deaths", {
+	expected <- yearly_deaths("Alberta")
+	expect_s3_class(expected, "data.frame")
+	expect_equal(unique(expected$province), "Alberta")
+	expect_error(yearly_deaths("BC"), "Please enter a valid province name that too in its full form!")
+})
 
 # Function showing the data for the recovery cases after COVID- 19
 recovered <- function(provinceName = 'Canada'){
