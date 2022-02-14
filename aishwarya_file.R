@@ -68,6 +68,16 @@ vaccine_as_per_province <- function(provinceName = 'Canada'){
 }
 
 
+# TESTING of the function 
+
+test_that("testing of vaccine_as_per_province", {
+	expected <- vaccine_as_per_province("Alberta")
+	expect_s3_class(expected, "data.frame")
+	expect_equal(unique(expected$province), "Alberta")
+	expect_error(active_cases("BC"), "Please enter a valid province name in full form!")
+})
+
+
 # Function for getting the information about the cases as per the province
 cases_as_per_province <- function(provinceName = 'Canada'){
 	#' Function for returning data frame for the Covid - 19 cases in different provinces in Canada.
