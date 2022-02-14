@@ -421,7 +421,7 @@ test_that("testing of yearly_vaccine_distribution", {
 
 
 
-# Function shows the information of the deaths related to COVID -19 as per the specified province
+# 7. Function shows the information of the deaths related to COVID -19 as per the specified province
 mortality <- function(provinceName = 'Canada'){
 	#' Function for returning data frame for the Covid - 19 mortality rate in different provinces in Canada.
 	#' 
@@ -475,6 +475,15 @@ mortality <- function(provinceName = 'Canada'){
 		return(mortaility_data)
 	}
 }
+
+
+# TSETING the fucntion 
+test_that("testing of mortality", {
+	expected <- mortality("Alberta")
+	expect_s3_class(expected, "data.frame")
+	expect_equal(unique(expected$province), "Alberta")
+	expect_error(mortality("BC"), "Please enter a valid province name that too in its full form!")
+})
 
 
 # Function showing the information of the deaths related to COVID -19 as per the year passed
