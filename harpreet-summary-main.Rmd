@@ -5,10 +5,6 @@ date: "12/02/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ```{r}
 # libraries imported
 library(httr)
@@ -46,7 +42,7 @@ summary_of_cases <- function(provinceName = "Canada") {
   #'
   #' @param provinceName (not abbreviated)
   #'
-  #' @return Data frame with all the columns for the entire summary for all the provinces individually would be returned. The columns includes the date, province name, active_cases, active_cases_change, avaccine, cases,cumulative_avaccine, cumulative_cases,cumulative_cvaccine, cumulative_deaths,   cumulative_dvaccine, and cumulative_recovered, cumulative_testing, cvaccine, deaths, dvaccine recovered, testing and testing_info.
+  #' @return Data frame with all the columns for the entire summary for all the provinces individually would be returned. The columns includes the date, province name, active_cases, active_cases_change, avaccine, cases,cumulative_avaccine, cumulative_cases,cumulative_cvaccine, cumulative_deaths,   cumulative_dvaccine, cumulative_recovered, cumulative_testing, cvaccine, deaths, dvaccine, recovered, testing and testing_info.
   #'
   #' @examples summary_of_cases("Ontario")
 
@@ -66,7 +62,7 @@ summary_of_cases <- function(provinceName = "Canada") {
     active_data <- rbind(active_data, data.frame(json_data[[1]][[i]]))
   }
 
-  # data wrangling
+  # dataframe wrangling
   active_data <- active_data %>%
     mutate(date, date = dmy(date)) %>%
     mutate(
