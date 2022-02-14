@@ -10,17 +10,26 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+#libraries imported
 library(httr)
 library(jsonlite)
 library(dplyr)
 library(lubridate)
+library(testthat)
 ```
 
 
 ```{r}
 
 request_fun <- function(){
-#' Function to make request to API and returns the response 
+#' @title Make Request to API url for content extraction
+#' 
+#' @description The function will pass a get request to the url mentioned in the function and help in accessing the json/xml/html content of the web page. If the returned response code is 200 that means everything is good.
+#' @param is none
+#' 
+#' @returns the response 
+#' @example url = 'https://api.opencovid.ca/summary'
+#' 
   url <- 'https://api.opencovid.ca/summary'
   request <- GET(url)
   return(request)
@@ -31,9 +40,9 @@ request_fun <- function(){
 ```{r}
 summary_of_active_cases <- function(provinceName = 'Canada'){
   
-  #' @title  Returns a dataframe of active Covid-19 cases in desired province of Canada
+  #' @title Every province`s summary of Covid-19 for a particular day or when the document is created.
   #'
-  #' @description Perform data wrangling and cleaning using the API for the Covid-19 cases in Canada.
+  #' @description Summary for all the provinces relating to Covid-19 active cases, avaccine, cvaccine and dvaccine. Moreover, is discloses the count of people who have recovered and who were tested.
   #' It processes the API and returns the data corresponding to one province which is passed on as the argument. If user passes empty      
   #' argument, so by default Canada is used which returns the data of whole Canada as a  whole.
   #' The returned data is a data frame and contains the columns including the date, province name, active cases, change is active cases,
