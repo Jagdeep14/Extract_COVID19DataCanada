@@ -1,6 +1,6 @@
 {
     "id": "FB2470EB",
-    "path": "~/Desktop/covid19data/R/all_functions.R",
+    "path": "~/Desktop/Data534/Project534/534_project/R/all_functions.R",
     "project_path": "R/all_functions.R",
     "type": "r_source",
     "hash": "3584993388",
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "619,3",
-        "scrollLine": "607"
+        "cursorPosition": "838,53",
+        "scrollLine": "825"
     },
     "folds": "",
-    "lastKnownWriteTime": 1644897342,
+    "lastKnownWriteTime": 1644898956,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1644897342630,
+    "last_content_update": 1644898956,
     "read_only": false,
     "read_only_alternatives": []
 }

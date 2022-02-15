@@ -1,0 +1,157 @@
+---
+title: "covid_vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{covid_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(covid19data)
+```
+
+### active_cases(provinceName = 'Canada')
+
+```{r}
+data <- active_cases(provinceName = 'British Columbia')
+head(data)
+```
+
+### vaccine_as_per_province(provinceName = 'Canada')
+
+```{r}
+data <- vaccine_as_per_province(provinceName = 'British Columbia')
+head(data)
+```
+
+### cases_as_per_province(provinceName = 'Canada')
+
+```{r}
+data <- cases_as_per_province(provinceName = 'British Columbia')
+head(data)
+```
+
+### Yearlycases_as_per_province(provinceName = 'Canada',yearpassed='2020')
+
+```{r}
+data <- Yearlycases_as_per_province(provinceName = 'British Columbia')
+head(data)
+```
+
+
+### cumulativevaccine_as_per_province(provinceName = 'Canada')
+
+```{r}
+data <- cumulativevaccine_as_per_province(provinceName = 'British Columbia')
+head(data)
+```
+
+
+### vaccine_distribution(provinceName = 'Canada')
+
+```{r}
+data <- vaccine_distribution(provinceName = 'British Columbia')
+head(data)
+```
+
+
+### yearly_vaccine_distribution(provinceName = 'Canada',distyear='2020')
+
+```{r}
+data <- yearly_vaccine_distribution(provinceName = 'British Columbia', distyear = '2021')
+head(data)
+```
+
+
+### mortality(provinceName = 'Canada')
+
+```{r}
+data <- mortality(provinceName = 'British Columbia')
+head(data)
+```
+
+
+### yearly_deaths(provinceName = 'Canada', dyear='2020')
+
+```{r}
+data <- yearly_deaths(provinceName = 'British Columbia')
+head(data)
+```
+
+
+### recovered(provinceName = 'Canada')
+
+```{r}
+data <- recovered(provinceName = 'British Columbia')
+head(data)
+```
+
+
+### yearly_recovered(provinceName = 'Canada', ryear='2020')
+
+```{r}
+data <- yearly_recovered(provinceName = 'British Columbia', ryear='2020')
+head(data)
+```
+
+
+### testing(provinceName = 'Canada')
+
+```{r}
+data <- testing(provinceName = 'British Columbia')
+head(data)
+```
+
+
+### summary_of_cases(provinceName = "Canada")
+
+```{r}
+data <- summary_of_cases(provinceName = 'British Columbia')
+head(data)
+```
+
+
+### summary_of_peaktime(provinceName = "Canada", date = '01-09-2020')
+
+```{r}
+data <- summary_of_peaktime(provinceName = 'British Columbia')
+head(data)
+```
+
+
+### summary_of_canada(date = '01-09-2020')
+
+```{r}
+data <- summary_of_canada()
+head(data)
+```
+
+### province_population(provinceName = 'Canada')
+
+```{r}
+data <- province_population()
+head(data)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
