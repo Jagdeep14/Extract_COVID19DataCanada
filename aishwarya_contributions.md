@@ -19,7 +19,7 @@ https://github.com/aishwaryasharma10/534_project.git
 
 ## Day 2 Aishwarya:
 
-On day two, I have wriiten various functions using the API 'https://api.opencovid.ca/timeseries'
+On day two, I have written various functions using the API 'https://api.opencovid.ca/timeseries'
 Following is the list of the functions that I have created:
 
 - vaccine_as_per_province
@@ -42,7 +42,7 @@ https://github.com/aishwaryasharma10/534_project.git
 
 ## Day 3 Aishwarya:
 
-On day two, I have wriiten various tests for the functions using the API 'https://api.opencovid.ca/timeseries'
+On third day, I have written various tests for the functions using the API 'https://api.opencovid.ca/timeseries'
 Following is the list of the functions for which I have created the test cases.
 
 - vaccine_as_per_province
@@ -62,3 +62,14 @@ Following is the list of the functions for which I have created the test cases.
 https://github.com/aishwaryasharma10/534_project.git
 
 ![Day1_Aishwarya](Day3_Aishwarya.png)
+
+## Day 4 Aishwarya:
+
+- Fourth day was the day for merging major of the project. We have merged our code from different individual branches and  have created the package out of that.
+- All the required documentation was completed on fourth day and we have created the final project and have pushed that on the GitHub.
+- I have studied how to create the vignette along with certain documentation on how to publish our package over the CRAN.
+- I have passed on the research I did on that and we have planned to implement that vignette finalization on the next day.
+
+- Following is the link to the git repository along with the screenshot of the commits done by me.
+
+https://github.com/aishwaryasharma10/534_project.git
