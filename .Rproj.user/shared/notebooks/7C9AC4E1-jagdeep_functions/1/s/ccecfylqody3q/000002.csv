@@ -1,0 +1,8 @@
+"0",""
+"0","request_fun <- function(){"
+"0","#' Function to make request to API and returns the response "
+"0","  url <- 'https://api.opencovid.ca/timeseries'"
+"0","  request <- GET(url)"
+"0","  return(request)"
+"0","}"
+"0",""

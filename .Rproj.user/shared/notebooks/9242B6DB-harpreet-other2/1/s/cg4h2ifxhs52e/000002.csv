@@ -1,0 +1,7 @@
+"0",""
+"0","request_fun <- function(){"
+"0","  url <- 'https://api.opencovid.ca/other?stat=prov'"
+"0","  request <- GET(url)"
+"0","  return(request)"
+"0","}"
+"0",""
