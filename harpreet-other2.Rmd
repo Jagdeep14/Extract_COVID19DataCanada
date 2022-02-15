@@ -19,15 +19,7 @@ library(testthat)
 
 ```{r}
 
-request_fun <- function(){
- #' @title Make Request to API url for content extraction
-  #'
-  #' @description The function will pass a get request to the url mentioned in the function and help in accessing the json/xml/html content of the web page. If the returned response code is 200 that means everything is good.
-  #' @param is none
-  #'
-  #' @returns the response
-  #' @example url = 'https://api.opencovid.ca/summary?date=01-09-2020'
-  #'
+request_fun_pop <- function(){
   url <- 'https://api.opencovid.ca/other?stat=prov'
   request <- GET(url)
   return(request)
@@ -40,13 +32,19 @@ province_population <- function(provinceName = 'Canada'){
   #' @title Total population segregated for every Canadian province.
   #'
   #' @description The total population count for every province is individual mentioned.
-  #' It processes the API and returns the json data corresponding to entered province. exceptional user input have been handled. If 'Canada' is passed as an argument the output displays the data for all the Canadian provinces.The returned data is a data frame and,
+  #' It processes the API and returns the json data corresponding to entered province. 
+  #' If 'Canada' is passed as an argument the output displays the data for all the Canadian 
+  #' provinces.The returned data is a data frame and,
   #'
-  #' @param provinceName (not abbreviated)
+  #' @param provinceName a character/ string depicting the name of the province
   #'
-  #' @return Data frame with all the columns for the entire summary for all the provinces individually would be returned. The columns includes the date, province name, active_cases, active_cases_change, avaccine, cases,cumulative_avaccine, cumulative_cases,cumulative_cvaccine, cumulative_deaths,   cumulative_dvaccine, cumulative_recovered, cumulative_testing, cvaccine, deaths, dvaccine, recovered, testing and testing_info.
+  #' @return Data frame with all the columns for the entire summary for all the provinces individually would be 
+  #' returned. The columns includes the date, province name, active_cases, active_cases_change, avaccine, 
+  #' cases,cumulative_avaccine, cumulative_cases,cumulative_cvaccine, cumulative_deaths,   cumulative_dvaccine, 
+  #' cumulative_recovered, cumulative_testing, cvaccine, deaths, dvaccine, recovered, testing and testing_info.
   #'
   #' @examples province_population("Ontario")
+  
   prov = c("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Nunavut", "Northwest Territories", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon", "Canada")
   
   `%!in%` <- Negate(`%in%`) 
@@ -54,7 +52,7 @@ province_population <- function(provinceName = 'Canada'){
     stop("Please enter a valid province name in full form!")
   }
   
-  request <- request_fun()
+  request <- request_fun_pop()
   json_data <- content(request, as  = "parse")
   all_active <- json_data$active
   active_data <- data.frame()
@@ -74,7 +72,6 @@ province_population <- function(provinceName = 'Canada'){
   
   
   active_data <- active_data[,c(2,1)]
-  print(active_data)
   if(tolower(provinceName) == "canada"){
     return(active_data)
   } else {
@@ -94,9 +91,8 @@ data <- province_population('ALBERTA')
 
 test_that("testing of summary_of_peaktime", {
   expected <- province_population("Ontario")
-  expect_that(expected, is_a("data.frame"))
+  expect_s3_class(expected, "data.frame")
   expect_equal(unique(expected$province), "Ontario")
-  expect_that(length(expected), equals(2))
   expect_error(province_population("BC"), "Please enter a valid province name in full form!")
 })
 ```
