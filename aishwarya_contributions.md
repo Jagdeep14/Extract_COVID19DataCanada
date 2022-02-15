@@ -73,3 +73,24 @@ https://github.com/aishwaryasharma10/534_project.git
 - Following is the link to the git repository along with the screenshot of the commits done by me.
 
 https://github.com/aishwaryasharma10/534_project.git
+
+## Day 5 Aishwarya:
+
+- We have finally completed the vignette file.
+- I have added my documentation part of the functions that I have writen.
+- I have wriiten documentation for the vignette for the following functions:
+		- vaccine_as_per_province
+		- cases_as_per_province
+		- Yearlycases_as_per_province
+		- cumulativevaccine_as_per_province
+		- vaccine_distribution
+		- yearly_vaccine_distribution
+		- mortality
+		- yearly_deaths
+		- recovered
+		- yearly_recovered
+		- testing
+
+- Following is the link to the git repository along with the screenshot of the commits done by me.
+
+https://github.com/aishwaryasharma10/534_project.git
