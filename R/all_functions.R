@@ -45,7 +45,7 @@ active_cases <- function(provinceName = 'Canada'){
   #'
   #' @description Perform data wrangling and cleaning using the API for the Covid-19 cases in Canada.
   #' It processes the API and returns the data corresponding to one province which is passed on as the argument. If user passes empty argument, so by default Canada is used which returns the data of whole Canada as a  whole.
-  #' The returned data is a data frame and contains the columns including the date, province name, active cases, change is active cases,
+  #' The returned data is a data frame and contains the columns including the date, province name, active cases, change in active cases,
   #' cumulative cases, cumulative deaths and cumulative recovered.
   #'
   #' @param provinceName a character/string depicting the name of the province

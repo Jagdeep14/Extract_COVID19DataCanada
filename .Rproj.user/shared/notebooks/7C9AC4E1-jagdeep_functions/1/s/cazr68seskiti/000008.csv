@@ -1,5 +1,0 @@
-"0","data <- Yearlycases_as_per_province(provinceName = 'Canada', yearpassed=""1987"")
-"
-"2","Error in Yearlycases_as_per_province(provinceName = ""Canada"", yearpassed = ""1987"") : 
-  There is no data for this year!
-"
