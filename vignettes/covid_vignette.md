@@ -1,18 +1,13 @@
 ---
-title: "COVID19data Vignette"
+title: "COVID10data Vignette"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{COVID19data Vignette}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{COVID10data Vignette}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+
 
 # Package - COVID19data
 
@@ -44,7 +39,8 @@ The detailed description of these functions as given below.
 
 First, user need to install `install.packages("devtools")` and then install the package from github using command `install_github('aishwaryasharma10/COVID19data')`. 
 
-```{r setup}
+
+```r
 library(COVID19data)
 ```
 
@@ -53,9 +49,24 @@ library(COVID19data)
 This function `active_cases` returns a dataframe of daily active Covid cases of desired province or Canada. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then Canada is used as an argument which returns the data of whole Canada as a whole. The returned data is a data frame and contains the columns including the date, province name, active cases, change in active cases, cumulative cases, cumulative deaths and cumulative recovered. The function can be called as below. 
 
 
-```{r}
+
+```r
 data <- active_cases(provinceName = 'British Columbia')
 head(data)
+#>         date         province active_cases active_cases_change cumulative_cases
+#> 1 2020-01-25 British Columbia            0                   0                0
+#> 2 2020-01-26 British Columbia            0                   0                0
+#> 3 2020-01-27 British Columbia            0                   0                0
+#> 4 2020-01-28 British Columbia            1                   1                1
+#> 5 2020-01-29 British Columbia            1                   0                1
+#> 6 2020-01-30 British Columbia            1                   0                1
+#>   cumulative_deaths cumulative_recovered
+#> 1                 0                    0
+#> 2                 0                    0
+#> 3                 0                    0
+#> 4                 0                    0
+#> 5                 0                    0
+#> 6                 0                    0
 ```
 
 ### 2. vaccine_as_per_province(provinceName = 'Canada')
@@ -197,9 +208,18 @@ summary_of_peaktime(provinceName = 'British Columbia')
 The function returns the summary for the peak time for Canada which was September 2020. The input would be string the country name – ‘Canada’. The function returns a dataframe of the date, province name, active_cases, active_cases_change, avaccine, cases,cumulative_avaccine, cumulative_cases,cumulative_cvaccine, cumulative_deaths,  cumulative_dvaccine, cumulative_recovered, cumulative_testing, cvaccine, deaths, dvaccine, recovered, testing and testing_info. The function can be called as below. 
 
 
-```{r}
+
+```r
 data <- summary_of_canada()
 head(data)
+#>         date province active_cases active_cases_change avaccine cases
+#> 1 2020-09-01   Canada         7485                  48     NULL   503
+#>   cumulative_avaccine cumulative_cases cumulative_cvaccine cumulative_deaths
+#> 1                NULL           131266                NULL              9174
+#>   cumulative_dvaccine cumulative_recovered cumulative_testing cvaccine deaths
+#> 1                NULL               114607            5913964     NULL      6
+#>   dvaccine recovered testing testing_info
+#> 1     NULL       449   45717         NULL
 ```
 
 ### 16. province_population(provinceName = 'Canada')
