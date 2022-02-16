@@ -42,7 +42,7 @@ The detailed description of these functions as given below.
 
 ### To install package
 
-First, user need to install `install.packages("devtools")` and then install the package from github using command `install_github('aishwaryasharma10/COVID19data')`. 
+First, user need to install `install.packages("devtools")` and then install the package from github using command `install_github('aishwaryasharma10/COVID19data', build_vignettes=TRUE)`. Make the optional argument `build_vignettes` true if you want to build vignettes for this package and use `browseVignettes("COVID19data")` to see the vignette . Then, the package can be loaded as below:
 
 ```{r setup}
 library(COVID19data)
@@ -62,18 +62,18 @@ head(data)
 
 This function `vaccine_as_per_province` returns a dataframe of vaccines given as per the desired province or Canada. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then Canada is used as an argument which returns the data of whole Canada as a whole. The returned data is a data frame and contains the columns including the date of the vaccination, province name, administered vaccine and cumulative vaccine. The function can be called as below. 
 
-```
-vaccine_as_per_province(provinceName = 'British Columbia')
-
+```{r}
+data <- vaccine_as_per_province(provinceName = 'British Columbia')
+head(data)
 ```
 
 ### 3. cases_as_per_province(provinceName = 'Canada')
 
 This function `cases_as_per_province` returns a dataframe of Covid -19 cases as per the desired province or Canada. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then Canada is used as an argument which returns the data of whole Canada as a whole. The returned data is a data frame and contains the columns including the date of the cases, province name, cases and cumulative cases. The function can be called as below. 
 
-```
-cases_as_per_province(provinceName = 'British Columbia')
-
+```{r}
+data <- cases_as_per_province(provinceName = 'British Columbia')
+head(data)
 ```
 
 ### 4. Yearlycases_as_per_province(provinceName = 'Canada',yearpassed='2020')
@@ -81,9 +81,9 @@ cases_as_per_province(provinceName = 'British Columbia')
 This function `Yearlycases_as_per_province` returns a dataframe of Covid -19 cases as per the desired province or Canada. Also, it takes year as an argument along with the province name. It will return the Covid -19 cases as per the passed province and year. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then for province it takes Canada and for year it takes 2020. This returns the data of full Canada as a whole for year 2020. The returned data is a data frame and contains the columns including the date of the cases, province name, cases and cumulative cases for the year specified. The function can be called as below. 
 
 
-```
- Yearlycases_as_per_province(provinceName = 'British Columbia')
-
+```{r}
+data <- Yearlycases_as_per_province(provinceName = 'British Columbia')
+head(data)
 ```
 
 
@@ -91,9 +91,9 @@ This function `Yearlycases_as_per_province` returns a dataframe of Covid -19 cas
 
 This function `cumulativevaccine_as_per_province` returns a dataframe of Covid -19 cumulative vaccines as per the desired province or Canada. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then Canada is used as an argument which returns the data of whole Canada as a whole. The returned data is a data frame and contains the columns including the date of the vaccination, province name,cumulative vaccine and cvaccine. The function can be called as below. 
 
-```
-cumulativevaccine_as_per_province(provinceName = 'British Columbia')
-
+```{r}
+data <- cumulativevaccine_as_per_province(provinceName = 'British Columbia')
+head(data)
 ```
 
 
@@ -101,9 +101,9 @@ cumulativevaccine_as_per_province(provinceName = 'British Columbia')
 
 This function `vaccine_distribution` returns a dataframe of Covid -19 vaccine distribution as per the desired province or Canada. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then Canada is used as an argument which returns the data of whole Canada as a whole. The returned data is a data frame and contains the columns including the date distribution, province name,cumulative vaccine and count of distribution of vaccines. The function can be called as below. 
 
-```
-vaccine_distribution(provinceName = 'British Columbia')
-
+```{r}
+data <- vaccine_distribution(provinceName = 'British Columbia')
+head(data)
 ```
 
 
@@ -111,9 +111,9 @@ vaccine_distribution(provinceName = 'British Columbia')
 
 This function `yearly_vaccine_distribution` returns a dataframe of Covid -19 vaccine distribution as per the desired province or Canada. Also, it takes year as an argument along with the province name. It will return the Covid -19 cases as per the passed province and year. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then for province it takes Canada and for year it takes 2020 as default. This returns the data of full Canada as a whole for year 2020. The returned data is a data frame and contains the columns including the date distribution, province name,cumulative vaccine and count of distribution of vaccines. The function can be called as below. 
 
-```
-yearly_vaccine_distribution(provinceName = 'British Columbia', distyear = '2021')
-
+```{r}
+data <- yearly_vaccine_distribution(provinceName = 'British Columbia', distyear = '2021')
+head(data)
 ```
 
 
@@ -121,9 +121,9 @@ yearly_vaccine_distribution(provinceName = 'British Columbia', distyear = '2021'
 
 This function `mortality` returns a dataframe of Covid -19 mortality rate as per the desired province or Canada. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then Canada is used as an argument which returns the data of whole Canada as a whole. The returned data is a data frame and contains the columns including the date of the death, province name, cumulative deaths and deaths. The function can be called as below. 
 
-```
-mortality(provinceName = 'British Columbia')
-
+```{r}
+data <- mortality(provinceName = 'British Columbia')
+head(data)
 ```
 
 
@@ -132,9 +132,9 @@ mortality(provinceName = 'British Columbia')
 This function `yearly_deaths` returns a dataframe of number of deaths due to Covid -19  as per the desired province or Canada. Also, it takes year as an argument along with the province name. It will return the Covid -19 deaths as per the passed province and year. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then for province it takes Canada and for year it takes 2020 as default. This returns the data of full Canada as a whole for year 2020. The returned data is a data frame and contains the columns including the date of the death, province name, cumulative deaths and deaths. The function can be called as below. 
 
 
-```
-yearly_deaths(provinceName = 'British Columbia')
-
+```{r}
+data <- yearly_deaths(provinceName = 'British Columbia')
+head(data)
 ```
 
 
@@ -143,9 +143,9 @@ yearly_deaths(provinceName = 'British Columbia')
 This function `recovered` returns a dataframe of Covid -19 recovery rates as per the desired province or Canada. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then Canada is used as an argument which returns the data of whole Canada as a whole. The returned data is a data frame and contains the columns including the recovery date, province, cumulative recovered, and count of recovery. The function can be called as below. 
 
 
-```
-recovered(provinceName = 'British Columbia')
-
+```{r}
+data <- recovered(provinceName = 'British Columbia')
+head(data)
 ```
 
 
@@ -154,9 +154,9 @@ recovered(provinceName = 'British Columbia')
 This function `yearly_recovered` returns a dataframe of number of patients who have recovered after Covid -19 as per the desired province or Canada. Also, it takes year as an argument along with the province name. It will return the Covid -19 recovery count as per the passed province and year. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then for province it takes Canada and for year it takes 2020 as default. This returns the data of full Canada as a whole for year 2020. The returned data is a data frame and contains the columns including the recovery date, province, cumulative recovered, and count of recovery. The function can be called as below. 
 
 
-```
-yearly_recovered(provinceName = 'British Columbia', ryear='2020')
-
+```{r}
+data <- yearly_recovered(provinceName = 'British Columbia', ryear='2020')
+head(data)
 ```
 
 
@@ -164,9 +164,9 @@ yearly_recovered(provinceName = 'British Columbia', ryear='2020')
 
 This function `testing` returns a dataframe of Covid -19 testing rates as per the desired province or Canada. The function accepts the province names in its full form not abbreviated. If user does not pass any argument then Canada is used as an argument which returns the data of whole Canada as a whole. The returned data is a data frame and contains the columns including the testing date, province, cumulative testing, and count of testing. The function can be called as below. 
 
-```
-testing(provinceName = 'British Columbia')
-
+```{r}
+data <- testing(provinceName = 'British Columbia')
+head(data)
 ```
 
 
@@ -175,9 +175,9 @@ testing(provinceName = 'British Columbia')
 The function takes in the input string formatted which would either be the name of a particular province for which the user needs the Covid summary data or the country name – ‘Canada’. The function after parsing the input from the user will return a data frame relating to the summary for the particular date, province name, active_cases, active_cases_change, avaccine, cases,cumulative_avaccine, cumulative_cases,cumulative_cvaccine, cumulative_deaths,  cumulative_dvaccine, cumulative_recovered, cumulative_testing, cvaccine, deaths, dvaccine, recovered, testing and testing_info. The function can be called as below. 
 
 
-```
-summary_of_cases(provinceName = 'British Columbia')
-
+```{r}
+data <- summary_of_cases(provinceName = 'British Columbia')
+head(data)
 ```
 
 
@@ -186,9 +186,9 @@ summary_of_cases(provinceName = 'British Columbia')
 The function returns the summary for the peak time for Canada which was September 2020. The input would be string either be the province or the country name – ‘Canada’. The function returns a dataframe of the date, province name, active_cases, active_cases_change, avaccine, cases,cumulative_avaccine, cumulative_cases,cumulative_cvaccine, cumulative_deaths,  cumulative_dvaccine, cumulative_recovered, cumulative_testing, cvaccine, deaths, dvaccine, recovered, testing and testing_info. The function can be called as below. 
 
 
-```
-summary_of_peaktime(provinceName = 'British Columbia')
-
+```{r}
+data <- summary_of_peaktime(provinceName = 'British Columbia')
+head(data)
 ```
 
 
@@ -206,9 +206,9 @@ head(data)
 
 The function returns the total population count for every province individually. The input would be string either be the province or the country name – ‘Canada’. The function returns a data frame which includes the province, and its population. The function can be called as below. 
 
-```
-province_population()
-
+```{r}
+data <- province_population()
+head(data)
 ```
 
 

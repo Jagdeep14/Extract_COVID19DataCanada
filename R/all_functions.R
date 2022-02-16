@@ -731,17 +731,17 @@ summary_of_cases <- function(provinceName = "Canada") {
 #'
 #' @export
 summary_of_peaktime <- function(provinceName = "Canada", date = '01-09-2020') {
-  #' @title Covid-19 peak time which is September 2020 individual summary for every Canadian province
+  #' @title Summary of Covid-19 peak time which is 01 September 2020 for every Canadian province
   #'
-  #' @description Summary for all the provinces relating to Covid-19 peak time in Canada which is the month of September 2020 or on
-  #' desired date: the
+  #' @description Summary for all the provinces relating to Covid-19 peak time in Canada which is the month of September 2020 or summary of
+  #' desired province on a desired date. It returns the
   #' active cases, avaccine, cvaccine and dvaccine. Moreover, is discloses the count of people who have recovered and who were tested on
   #' September 01, 2020.
   #' It processes the API and returns the json data corresponding to entered province. If
   #' 'Canada' is passed as an argument the output displays the data for all the Canadian provinces.The returned data is a data frame and,
   #'
   #' @param provinceName a character/ string depicting the name of the province
-  #' @param date desired date - to get the summary up to this date
+  #' @param date desired date - to get the summary on this date
   #'
   #' @return Data frame with all the columns for the entire summary for all the provinces individually would be returned. The columns
   #' includes the date, province name, active_cases, active_cases_change, avaccine, cases,cumulative_avaccine,
@@ -793,13 +793,13 @@ summary_of_peaktime <- function(provinceName = "Canada", date = '01-09-2020') {
 summary_of_canada <- function(date = '01-09-2020'){
   #' @title Covid-19 cases summary on 01 September 2020 or on desired date for entire Canada
   #'
-  #' @description Summary for the entire country relating to Covid-19 peak time in Canada which is the month of September 2020 : the
+  #' @description Summary for the entire country relating to Covid-19 peak time in Canada which is the month of September 2020 or on desired date. It returns the
   #' active cases, avaccine, cvaccine and dvaccine. Moreover, is discloses the count of people who have recovered and who were tested on
   #' September 01, 2020.
   #' It processes the API and returns the json data corresponding to the summary from all the data for all the Canadian provinces.The
   #' returned data is a data frame and,
   #'
-  #' @param date desired date - to get the summary up to this date
+  #' @param date desired date - to get the summary on this date
   #'
   #'
   #' @return Data frame with all the columns for the entire summary for all the provinces individually would be returned. The columns
@@ -831,7 +831,7 @@ summary_of_canada <- function(date = '01-09-2020'){
 #'
 #' @export
 province_population <- function(provinceName = 'Canada'){
-  #' @title Total population segregated for every Canadian province.
+  #' @title Total population segregated for every Canadian province or desired province.
   #'
   #' @description The total population count for every province is individual mentioned.
   #' It processes the API and returns the json data corresponding to entered province.

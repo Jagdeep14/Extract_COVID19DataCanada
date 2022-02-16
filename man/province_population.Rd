@@ -2,7 +2,7 @@
 % Please edit documentation in R/all_functions.R
 \name{province_population}
 \alias{province_population}
-\title{Total population segregated for every Canadian province.}
+\title{Total population segregated for every Canadian province or desired province.}
 \usage{
 province_population(provinceName = "Canada")
 }

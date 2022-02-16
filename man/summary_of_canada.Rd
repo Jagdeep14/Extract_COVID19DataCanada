@@ -7,7 +7,7 @@
 summary_of_canada(date = "01-09-2020")
 }
 \arguments{
-\item{date}{desired date - to get the summary up to this date}
+\item{date}{desired date - to get the summary on this date}
 }
 \value{
 Data frame with all the columns for the entire summary for all the provinces individually would be returned. The columns
@@ -16,7 +16,7 @@ cumulative_cases,cumulative_cvaccine, cumulative_deaths,   cumulative_dvaccine, 
 deaths, dvaccine, recovered, testing and testing_info.
 }
 \description{
-Summary for the entire country relating to Covid-19 peak time in Canada which is the month of September 2020 : the
+Summary for the entire country relating to Covid-19 peak time in Canada which is the month of September 2020 or on desired date. It returns the
 active cases, avaccine, cvaccine and dvaccine. Moreover, is discloses the count of people who have recovered and who were tested on
 September 01, 2020.
 It processes the API and returns the json data corresponding to the summary from all the data for all the Canadian provinces.The
