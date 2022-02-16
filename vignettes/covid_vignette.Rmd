@@ -16,7 +16,8 @@ knitr::opts_chunk$set(
 
 # Package - COVID19data
 
-This R-package `COVID19data` contains 16 wrapper functions to get Covid-19 data of Canada. These functions process API [https://opencovid.ca/api/#welcome](https://opencovid.ca/api/#welcome) to get data. Some functions provide daily data and some of them provide summary of data for all the provinces. This package contains four internal functions to request API and these are available to user. The list of 16 functions available to user is given below:
+This R-package `COVID19data` contains 16 wrapper functions to get Covid-19 data of Canada. These functions process API [https://opencovid.ca/api/#welcome](https://opencovid.ca/api/#welcome) to get data. Some functions provide daily data and others provide summary of data for all the provinces. This package contains four internal functions to request API which are not available to user. The list of 16 wrapper functions available to user is given below:
+
 
 ```
 1. active_cases(provinceName = 'Canada')
