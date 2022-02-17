@@ -14,7 +14,7 @@ Depends: R (>= 3.4.0)
 Imports: httr (>= 1.4.2),
          lubridate (>= 1.7.10), 
          jsonlite (>= 1.7.2), 
-         dplyr (>= 1.0.7)
+         dplyr (>= 0.8.0)
 Suggests: 
     rmarkdown,
     knitr,
