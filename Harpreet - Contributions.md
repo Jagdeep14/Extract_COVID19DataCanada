@@ -74,3 +74,32 @@ Group discussion related to mergering the files for forming a package.
 - How the folders and documentary works in R in contrary to the Python.
 - R is much simpler than Python.
 - Gathered information about the ropensci and how packages can be publicly made available.
+
+## Day 4:
+
+Group discussion on making and incorporating the vingette file.
+
+#### Task Performed:
+
+- Shared content for the vingette file.
+- Develop a sample package for testing it on Circleci.
+
+#### Things learned:
+
+- Make package in R
+- CircleCi
+- Ropensci
+
+## Day 5:
+
+Group work on performing build on circleci.
+
+#### Task Performed:
+
+- Made yml file
+- Mutually fixing bugs faced in circleci
+
+#### Things learned:
+
+- CircleCi build
+- How to write yml 
