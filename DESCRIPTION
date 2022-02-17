@@ -11,9 +11,9 @@ Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 7.1.2
 Depends: R (>= 3.4.0)
-Imports: httr (>= 1.4.2),
-         lubridate (>= 1.7.10), 
-         jsonlite (>= 1.7.2), 
+Imports: httr (>= 1.4.0),
+         lubridate, 
+         jsonlite, 
          dplyr (>= 0.8.0)
 Suggests: 
     rmarkdown,
