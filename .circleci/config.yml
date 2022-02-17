@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: rocker/verse:3.5.3
-     steps:
+    steps:
       - checkout
       - run:
           name: Install package dependencies
