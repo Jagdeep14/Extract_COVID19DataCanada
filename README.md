@@ -1,3 +1,8 @@
+
+<!-- badges: start -->
+  [![R-CMD-check](https://github.com/aishwaryasharma10/COVID19data/workflows/R-CMD-check/badge.svg)](https://github.com/aishwaryasharma10/COVID19data/actions)
+  <!-- badges: end -->
+
 # Package - COVID19data
 
 This R-package `COVID19data` contains 16 wrapper functions to get Covid-19 data of Canada. 
@@ -27,7 +32,6 @@ The list of 16 functions available to user is given below:
 
 ``` 
 
-The detailed description of these functions as given below.
 
 ### To install package
 
